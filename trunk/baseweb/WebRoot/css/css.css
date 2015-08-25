@@ -1,0 +1,97 @@
+p {text-indent: 2em; }
+body {font-size: x-small; color: #000000; margin-top: 1px; margin-right: 1px; margin-bottom: 1px; margin-left: 1px}
+
+A {color:#000000;text-decoration: underline;}
+A:link {color:#000000;text-decoration: underline;}
+A:visited {color:#000000;text-decoration: underline;}
+A:hover {color:#ff0000;text-decoration: underline;}
+
+.buttonCM{
+	border:   1px   solid   #666666;   
+  	 
+}
+
+.inputCM{
+	border:   1px   solid   #666666;   
+  	background-color:   #FFFFFF;  
+}
+
+.tableCM{
+	border-collapse: true;
+	border-width: 1px;
+}
+.trCM{
+}
+.tdCMTitle{
+}
+.tdCMContent{
+}
+.buttonCM{
+}
+.tableSubmit{
+}
+.trSubmit{
+}
+.tdSubmitTitle{
+}
+.tdSubmitContent{
+}
+
+.tableList{
+	 border:2px   solid   #C1DAD7;
+	 border-collapse: collapse;
+	 border-spacing: 3px;
+	 width: 100%
+}
+.trHeader{
+	background-color: #CAE8EA;
+}
+.tdHeader{
+	border-top:1px   solid   #C1DAD7;
+	border-right: 1px   solid   #C1DAD7;
+	text-align: center;	
+}
+.trContext{
+}
+.trContextNext{
+	background-color:#F5FAFA;
+}
+.tdContext{
+	border-top:1px   solid   #C1DAD7;
+	border-right: 1px   solid   #C1DAD7;
+}
+.tdContextCheck{
+	border-top:1px   solid   #C1DAD7;
+	border-right: 1px   solid   #C1DAD7;
+	text-align: center;
+}
+.tdContextIndex{
+	border-top:1px   solid   #C1DAD7;
+	border-right: 1px   solid   #C1DAD7;
+	text-align: center;
+}
+.tdContextEdit{
+	border-top:1px   solid   #C1DAD7;
+	border-right: 1px   solid   #C1DAD7;
+	text-align: center;
+}
+
+.tablePage{
+	 width: 100%
+}
+.trPage{
+	
+}
+.tdPage{
+	text-align: right;
+}
+
+.tableBottom{
+	 
+}
+.trBottom{
+	
+}
+.tdBottom{
+	
+}

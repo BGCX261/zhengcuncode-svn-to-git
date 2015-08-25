@@ -1,0 +1,103 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <!-- ========================= Start of PERSISTENCE DEFINITIONS ========================= -->
+  <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location">
+      <value>classpath:init.properties</value>
+    </property>
+  </bean>
+  <!-- Choose the dialect that matches your "dataSource" definition -->
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName">
+      <value>${datasource.driverClassName}</value>
+    </property>
+    <property name="url">
+      <value>${datasource.url}</value>
+    </property>
+    <property name="username">
+      <value>${datasource.username}</value>
+    </property>
+    <property name="password">
+      <value>${datasource.password}</value>
+    </property>
+    <property name="maxActive">
+      <value>${datasource.maxActive}</value>
+    </property>
+    <property name="maxIdle">
+      <value>${datasource.maxIdle}</value>
+    </property>
+    <property name="maxWait">
+      <value>${datasource.maxWait}</value>
+    </property>
+  </bean>  
+  
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <property name="dataSource">
+      <ref bean="dataSource"/>
+    </property>
+    <property name="mappingResources">
+      <list>
+		<value>com/opencode/bean/TspWorkMessage.hbm.xml</value>		
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+        <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+        <prop key="hibernate.jdbc.fetch_size">${hibernate.jdbc.fetch_size}</prop>
+        <prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+        <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+      </props>
+    </property>
+  </bean>  
+  
+  
+  <bean id="myTransactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory">
+      <ref local="sessionFactory"/>
+    </property>
+  </bean>
+  
+  <bean id="txProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <property name="transactionManager">
+      <ref bean="myTransactionManager"/>
+    </property>
+    <property name="transactionAttributes">
+      <props>
+        <prop key="create*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="save*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="add*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="init*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="copy*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="remove*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="update*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="edit*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="move*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="cut*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="make*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="exe*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="send*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="import*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="del*">PROPAGATION_REQUIRED,-com.common.PMException</prop>
+        <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+      </props>
+    </property>
+  </bean>
+  
+  <!-- DAO  -->   
+  <bean id="workMessageDao" class="com.opencode.test.dao.hibernate.WorkMessageHibernateDao">
+  	<property name="sessionFactory">
+  		<ref local="sessionFactory" />
+  	</property>
+  </bean>
+  
+  <!-- BIZ -->     
+  <bean id="workMessageBiz" parent="txProxyTemplate">
+  	<property name="target">
+  		<bean class="com.opencode.test.bizlogic.imp.WorkMessageBizImp" >
+  			<property name="workMessageDao" ref="workMessageDao" />
+  		</bean>
+  	</property>
+  </bean>
+  
+</beans>

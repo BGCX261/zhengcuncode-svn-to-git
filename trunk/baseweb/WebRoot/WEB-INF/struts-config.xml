@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+  <data-sources />
+  <form-beans>
+  	<form-bean name="workMessageForm" type="com.opencode.test.form.WorkMessageForm"></form-bean>
+  </form-beans>
+  <global-exceptions />
+  <global-forwards />
+  <action-mappings>
+  	<action path="/test/workMessageList" type="org.springframework.web.struts.DelegatingActionProxy" name="workMessageForm" attribute="workMessageForm" scope="request">
+  		<forward name="success" path="/test/workMessageList.jsp"></forward>
+  	</action>
+  	<action path="/test/workMessageEdit" type="org.springframework.web.struts.DelegatingActionProxy" name="workMessageForm" attribute="workMessageForm" scope="request">
+  		<forward name="success" path="/test/workMessageEdit.jsp"></forward>
+  	</action>
+  	<action path="/test/workMessageSave" type="org.springframework.web.struts.DelegatingActionProxy" name="workMessageForm" attribute="workMessageForm" scope="request">
+  		<forward name="success" path="/test/workMessageEdit.jsp"></forward>
+  	</action>
+  </action-mappings>
+  <message-resources parameter="ApplicationResources" />
+  
+  <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+  	<set-property property="contextConfigLocation" value="/WEB-INF/classes/applicationContext.xml,/WEB-INF/action-servlet.xml" />
+  </plug-in>
+</struts-config>
+
